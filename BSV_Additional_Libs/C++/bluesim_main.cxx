@@ -117,7 +117,7 @@ int main (int argc, char *argv[])
     // tModel model = new_MODEL_mkFoo();
     tModel model = NEW_MODEL_MKFOO ();
 
-    tSimStateHdl sim = bk_init (model, true, false);
+    tSimStateHdl sim = bk_init (model, true);
 
     if (vcd_filename != NULL) {
 	tStatus status = bk_set_VCD_file (sim, vcd_filename);
