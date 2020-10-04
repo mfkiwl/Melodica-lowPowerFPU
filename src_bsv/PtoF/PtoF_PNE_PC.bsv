@@ -39,12 +39,12 @@ import PtoF_Types	:: *;
 import Extracter_Types	:: *;
 
 interface PtoF_PNE ;
-   interface Server #(Output_posit,Bit#(FloatWidth)) compute;
+   interface Server #(Output_posit,Output_float) compute;
 endinterface
 
 module mkPtoF_PNE(PtoF_PNE);
 
-FIFO #(Bit#(FloatWidth)) ffO <- mkFIFO;
+FIFO #(Output_float) ffO <- mkFIFO;
 PtoF_IFC  ptoF <- mkPtoF_Extracter;
 
 rule rl_out;
