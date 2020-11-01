@@ -63,7 +63,9 @@ module mkPositCore #(Bit #(4) verbosity) (PositCore_IFC);
 	Reg #(Bit#(QuireWidth))  rg_quire   <- mkReg(0);
 	Reg #(Bit#(1))  rg_quire_busy   <- mkReg(0);
 	FMA_PNE_Quire       fma             <- mkFMA_PNE_Quire(rg_quire);
+`ifdef INCLUDE_PDIV
 	FDA_PNE_Quire       fda             <- mkFDA_PNE_Quire(rg_quire);		
+`endif
 	PositToQuire_PNE    ptoq            <- mkPositToQuire_PNE(rg_quire);
 	QuireToPosit_PNE    qtop            <- mkQuireToPosit_PNE(rg_quire);	
 	FtoP_PNE            ftop            <- mkFtoP_PNE;	
@@ -143,6 +145,7 @@ module mkPositCore #(Bit #(4) verbosity) (PositCore_IFC);
 		rg_quire_busy <= 1'b1;
 	endrule
 
+`ifdef INCLUDE_PDIV
 	rule rl_fda((opcode_in.first == FDA_P || opcode_in.first == FDS_P) && rg_quire_busy == 1'b0);
 		let extOut1 <- extracter1.inoutifc.response.get();
 	   	let extOut2 <- extracter2.inoutifc.response.get();
@@ -151,6 +154,7 @@ module mkPositCore #(Bit #(4) verbosity) (PositCore_IFC);
 		opcode_in.deq;
 		rg_quire_busy <= 1'b1;                
 	endrule
+`endif
 	
 	rule rl_ptof(opcode_in.first == FCVT_S_P);
 		let extOut1 <- extracter1.inoutifc.response.get();
@@ -260,6 +264,7 @@ module mkPositCore #(Bit #(4) verbosity) (PositCore_IFC);
 				ffO.enq(tuple2(posit_out,excep));
 				rg_quire_busy <= 1'b0;
 			end
+`ifdef INCLUDE_PDIV
 		else if(op == FDA_P ||op == FDS_P  )
 			begin
 				let a <- fda.compute.response.get();
@@ -267,6 +272,7 @@ module mkPositCore #(Bit #(4) verbosity) (PositCore_IFC);
 				ffO.enq(tuple2(posit_out,excep));
 				rg_quire_busy <= 1'b0;
 			end
+`endif
 		else if(op == FCVT_R_P)
 			begin
 				let a <- ptoq.compute.response.get();

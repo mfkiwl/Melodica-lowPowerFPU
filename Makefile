@@ -144,8 +144,9 @@ $(SOFTPOSIT_OBJPATH)/c_convertQuireX2ToPositX2$(OBJ)
  
 
 # From bluespec installation
-BSIM_INCDIR=$(BLUESPECDIR)/Bluesim
-BSIM_LIBDIR=$(BSIM_INCDIR)/$(CXXFAMILY)
+#BSIM_INCDIR=$(BLUESPECDIR)/Bluesim
+BSIM_INCDIR = /opt/bsc/B-Lang/lib/Bluesim
+#BSIM_LIBDIR=$(BSIM_INCDIR)/$(CXXFAMILY)
 Testbench_Path = src_bsv/tb
 
 # ---------------
@@ -239,9 +240,9 @@ CPP_FLAGS += \
         -DNEW_MODEL_MKFOO=new_MODEL_$(TOPMOD) \
         -DMODEL_MKFOO_H=\"model_$(TOPMOD).h\" \
 	-I$(BSIM_INCDIR) \
-	-L$(BSIM_LIBDIR) \
 	-L$(SOFTPOSIT_OBJPATH) \
 	-O3 \
+#	-L$(BSIM_LIBDIR) \
 
 # -------------------------------------------------------------------------------------
 # Compilation Targets -- Here starts the real work
@@ -355,7 +356,8 @@ bsim_divider: divider_working_dirs
 
 #FMA
 .PHONY: sim_fma
-sim_fma: bsim_fma link_fma link_fma_d simulate_fma
+#sim_fma: bsim_fma link_fma link_fma_d simulate_fma
+sim_fma: bsim_fma link_fma simulate_fma
 
 .PHONY: bsim_fma
 bsim_fma: fma_working_dirs
