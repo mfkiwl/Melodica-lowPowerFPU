@@ -15,6 +15,7 @@ import Extracter_Types :: *;
 import Normalizer_Types :: *;
 import Posit_Numeric_Types :: *;
 import Posit_User_Types :: *;
+import PtoF_Types :: *;
 import FMA_PNE_Quire_PC :: *;
 import FDA_PNE_Quire_PC :: *;
 import FtoP_PNE_PC :: *;
