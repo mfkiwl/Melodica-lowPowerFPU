@@ -93,8 +93,13 @@ module mkPositCore #(Bit #(4) verbosity) (PositCore_IFC);
 
 	FIFO #(PositCmds) opcode_out <- mkFIFO1;
 
+`ifdef PIPELINED
 	FIFO #(Posit_Req) ffI <- mkFIFO;
 	FIFO #(Fpu_Rsp) ffO <- mkFIFO;
+`else
+	FIFO #(Posit_Req) ffI <- mkFIFO1;
+	FIFO #(Fpu_Rsp) ffO <- mkFIFO1;
+`endif
 
 
         // Send posit values for extraction		

@@ -41,10 +41,17 @@ import Posit_User_Types :: *;
 module mkNormalizer (Normalizer_IFC);
 
     // make a FIFO to store data at the end of each stage of the pipeline, and also for input and outputs
+`ifdef PIPELINED
     FIFOF #(Output_posit_n )  fifo_output_reg <- mkFIFOF;
     FIFOF #(Stage0_n )  fifo_stage0_reg <- mkFIFOF;
     FIFOF #(Stage1_n )  fifo_stage1_reg <- mkFIFOF;
     FIFOF #(Stage2_n )  fifo_stage2_reg <- mkFIFOF;
+`else
+    FIFOF #(Output_posit_n )  fifo_output_reg <- mkFIFOF1;
+    FIFOF #(Stage0_n )  fifo_stage0_reg <- mkFIFOF1;
+    FIFOF #(Stage1_n )  fifo_stage1_reg <- mkFIFOF1;
+    FIFOF #(Stage2_n )  fifo_stage2_reg <- mkFIFOF1;
+`endif
 
     // Posit# (N, ES)
     Integer es_int = valueOf(ExpWidth);

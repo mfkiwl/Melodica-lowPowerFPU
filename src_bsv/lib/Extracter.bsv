@@ -38,10 +38,17 @@ import Posit_User_Types :: *;
 
 module mkExtracter (Extracter_IFC );
 	// make a FIFO to store data at the end of each stage of the pipeline, and also for input and outputs
+`ifdef PIPELINED
    	FIFOF #(Output_posit )  fifo_output_reg <- mkFIFOF;
 	FIFOF #(Stage0 )  fifo_stage0_reg <- mkFIFOF;
 	FIFOF #(Stage1 )  fifo_stage1_reg <- mkFIFOF;
 	FIFOF #(Stage2 )  fifo_stage2_reg <- mkFIFOF;
+`else
+   	FIFOF #(Output_posit )  fifo_output_reg <- mkFIFOF1;
+	FIFOF #(Stage0 )  fifo_stage0_reg <- mkFIFOF1;
+	FIFOF #(Stage1 )  fifo_stage1_reg <- mkFIFOF1;
+	FIFOF #(Stage2 )  fifo_stage2_reg <- mkFIFOF1;
+`endif
 	Integer es_int = valueOf(ExpWidth);
 	Integer n_int = valueOf(PositWidth);
 

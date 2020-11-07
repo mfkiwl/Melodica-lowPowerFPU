@@ -42,9 +42,9 @@ interface PositToQuire_IFC;
 endinterface
 
 module mkPositToQuire (PositToQuire_IFC );
-	FIFOF #(Bit#(QuireWidth) )  fifo_output_reg <- mkFIFOF;
-	FIFOF #(Output_posit )  fifo_stage0_reg <- mkFIFOF;
-	FIFOF #(Stage1_qp )  fifo_stage1_reg <- mkFIFOF;
+	FIFOF #(Bit#(QuireWidth) )  fifo_output_reg <- mkFIFOF1;
+	FIFOF #(Output_posit )  fifo_stage0_reg <- mkFIFOF1;
+	FIFOF #(Stage1_qp )  fifo_stage1_reg <- mkFIFOF1;
 
 	//This function will be used to get the Int-Frac value from the scale and frac value got from multiplying the values
 	function Bit#(IntWidthQuirePlusFracWidthQuire) calculate_frac_int(Bit#(FracWidthPlus1) f, Int#(ScaleWidthPlus1) s);

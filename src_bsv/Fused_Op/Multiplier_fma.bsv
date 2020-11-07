@@ -37,8 +37,13 @@ import Common_Fused_Op :: *;
 
 module mkMultiplier (Multiplier_IFC );
 	// make a FIFO to store 
+`ifdef PIPELINED
    	FIFOF #(Outputs_md )  fifo_output_reg <- mkFIFOF;
 	FIFOF #(Stage0_m )  fifo_stage0_reg <- mkFIFOF;
+`else
+   	FIFOF #(Outputs_md )  fifo_output_reg <- mkFIFOF1;
+	FIFOF #(Stage0_m )  fifo_stage0_reg <- mkFIFOF1;
+`endif
 	//This function is used to identify nan cases
 
 	function Bit#(1) check_for_nan_mul(PositType z_i1, PositType z_i2,Bit#(1) nan1,Bit#(1) nan2 );
