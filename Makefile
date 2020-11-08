@@ -259,6 +259,10 @@ adder_working_dirs :
 multiplier_working_dirs :
 	mkdir -p $(VERILOG_CODE_DIR_MULTIPLIER) $(BUILD_DIR_MULTIPLIER) $(BUILD_BSIM_DIR_MULTIPLIER) $(OUTPUT_MULTIPLIER)
 
+.PHONY: mac_working_dirs
+mac_working_dirs :
+	mkdir -p $(VERILOG_CODE_DIR_MAC) $(BUILD_DIR_MAC) $(BUILD_BSIM_DIR_MAC) $(OUTPUT_MAC)
+
 .PHONY: divider_working_dirs
 divider_working_dirs :
 	mkdir -p $(VERILOG_CODE_DIR_DIVIDER) $(BUILD_DIR_DIVIDER) $(BUILD_BSIM_DIR_DIVIDER) $(OUTPUT_DIVIDER)
@@ -291,7 +295,7 @@ qtop_working_dirs :
 # RTL Generation
 # --------
 .PHONY: rtl
-rtl: rtl_adder rtl_multiplier rtl_divider rtl_fma rtl_fda rtl_qtop rtl_ptoq rtl_ftop rtl_ptof
+rtl: rtl_adder rtl_multiplier rtl_divider rtl_mac rtl_fma rtl_fda rtl_qtop rtl_ptoq rtl_ftop rtl_ptof
 	@echo "Generating Melodica RTL ..."
 
 .PHONY: rtl_adder 
@@ -303,6 +307,9 @@ rtl_multiplier : multiplier_working_dirs
 .PHONY: rtl_divider 
 rtl_divider : divider_working_dirs
 	bsc -u -elab -verilog $(BSC_BUILDDIR_DIVIDER) -vdir $(VERILOG_CODE_DIR_DIVIDER) $(BSC_COMPILATION_FLAGS) -p $(DIVIDER_PATH) -g $(PNE_TOPMOD) src_bsv/Divider/PNE.bsv
+.PHONY: rtl_mac 
+rtl_mac : mac_working_dirs
+	bsc -u -elab -verilog $(BSC_BUILDDIR_MAC) -vdir $(VERILOG_CODE_DIR_MAC) $(BSC_COMPILATION_FLAGS) -p $(MAC_PATH) -g $(PNE_TOPMOD) src_bsv/Mac/PNE.bsv
 .PHONY: rtl_fma 
 rtl_fma : fma_working_dirs
 	bsc -u -elab -verilog $(BSC_BUILDDIR_FMA) -vdir $(VERILOG_CODE_DIR_FMA) $(BSC_COMPILATION_FLAGS) -p $(FMA_PATH) -g $(PNE_TOPMOD) src_bsv/Fused_Op/FMA_PNE_Quire.bsv
