@@ -37,9 +37,15 @@ import IntDivide_generic ::*;
 import Common_Fused_Op :: *;
 
 module mkDivider (Divider_IFC );
+`ifdef PIPELINED
 	// make a FIFO to store 
    	FIFOF #(Outputs_md )  fifo_output_reg <- mkFIFOF;
 	FIFOF #(Stage0_d )  fifo_stage0_reg <- mkFIFOF;
+`else
+	// make a FIFO to store 
+   	FIFOF #(Outputs_md )  fifo_output_reg <- mkFIFOF1;
+	FIFOF #(Stage0_d )  fifo_stage0_reg <- mkFIFOF1;
+`endif
 	//This function is used to identify nan cases
 	IntDivide intDivide <- mkIntDivide;
 	function Bit#(1) check_for_nan_div(PositType z_i1, PositType z_i2,Bit#(1) nan1,Bit#(1) nan2 );

@@ -45,9 +45,9 @@ interface QuireToPosit_IFC;
 endinterface
 
 module mkQuireToPosit (QuireToPosit_IFC );
-	FIFOF #(Input_value_n )  fifo_output_reg <- mkFIFOF;
-	FIFOF #(Stage0_qp )  fifo_stage0_reg <- mkFIFOF;
-	FIFOF #(Input_value_n )  fifo_stage1_reg <- mkFIFOF;
+	FIFOF #(Input_value_n )  fifo_output_reg <- mkFIFOF1;
+	FIFOF #(Stage0_qp )  fifo_stage0_reg <- mkFIFOF1;
+	FIFOF #(Input_value_n )  fifo_stage1_reg <- mkFIFOF1;
 	Int#(ScaleWidthPlus1) maxB,minB;
 	//max scale value is defined here... have to saturate the scale value 
 	// max value = (N-2)*(2^es) 

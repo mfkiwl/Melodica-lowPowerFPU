@@ -38,8 +38,13 @@ import Multiplier_Types_fma ::*;
 import Common_Fused_Op :: *;
 
 module mkAdder #(Reg #(Bit#(QuireWidth)) rg_quire)(Adder_IFC );
+`ifdef PIPELINED
    	FIFOF #(Stage0_a )  fifo_stage0_reg <- mkFIFOF;
    	FIFOF #(Bit#(0))  fifo_output_reg <- mkFIFOF;
+`else
+   	FIFOF #(Stage0_a )  fifo_stage0_reg <- mkFIFOF1;
+   	FIFOF #(Bit#(0))  fifo_output_reg <- mkFIFOF1;
+`endif
 
 
 	// --------
